@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#171a25">
+  <meta name="description" content="Personalização de produtos em tempo real">
+  <title>Studio Personalizado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=EB+Garamond:wght@700&family=Libre+Baskerville:wght@700&family=Montserrat+Alternates:wght@700&family=Montserrat:wght@700&family=Oswald:wght@700&family=Pacifico&family=Playfair+Display:wght@700&family=Quicksand:wght@700&family=Roboto+Condensed:wght@700&family=Roboto+Mono:wght@700&family=Roboto:wght@700&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=shirt-original-ratio">
+</head>
+<body>
+  <div class="app-shell" id="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Ir para o início" data-action="restart">
+        <span class="brand-mark">SP</span>
+        <span><strong>Studio</strong><small>Personalizado</small></span>
+      </a>
+      <div class="topbar-actions">
+        <span class="connection" id="connectionStatus"><span class="status-dot"></span><span>Online</span></span>
+        <button class="cart-button" id="cartButton" type="button" aria-label="Abrir carrinho" aria-expanded="false">
+          <span aria-hidden="true">🛒</span>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="icon-button" type="button" data-action="restart" aria-label="Reiniciar sessão">
+          <span aria-hidden="true">↻</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <nav class="progress" aria-label="Etapas do pedido">
+        <button type="button" class="progress-step active" data-step-nav="catalog"><span>1</span><small>Produto</small></button>
+        <button type="button" class="progress-step" data-step-nav="editor"><span>2</span><small>Personalizar</small></button>
+        <button type="button" class="progress-step" data-step-nav="cart"><span>3</span><small>Carrinho</small></button>
+        <button type="button" class="progress-step" data-step-nav="customer"><span>4</span><small>Dados</small></button>
+        <button type="button" class="progress-step" data-step-nav="checkout"><span>5</span><small>Pagamento</small></button>
+      </nav>
+
+      <section class="step active" id="catalog" aria-labelledby="catalogTitle">
+        <div class="section-heading">
+          <p class="eyebrow">Escolha seu produto</p>
+          <h1 id="catalogTitle">O que vamos criar hoje?</h1>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+
+      <section class="step" id="editor" aria-labelledby="editorTitle">
+        <div class="editor-layout">
+          <div class="preview-column">
+            <div class="preview-card">
+              <div class="preview-toolbar">
+                <button class="side-button active" type="button" data-side="front">Frente</button>
+                <button class="side-button" type="button" data-side="back">Costas</button>
+              </div>
+              <div class="mockup-stage" id="mockupStage" aria-label="Prévia do produto">
+                <div class="product-shadow"></div>
+                <div class="mockup-product" id="mockupProduct">
+                  <img class="mockup-image" id="mockupImage" alt="Modelo do produto">
+                  <div class="mockup-print-area">
+                    <div class="art-clip-layer">
+                      <img id="mockupArt" alt="Estampa selecionada">
+                    </div>
+                    <span id="mockupCustomName" class="mockup-custom-name"></span>
+                    <div class="design-selection art-selection" id="artSelection" hidden aria-label="Selecionar estampa">
+                      <span class="resize-handle nw" data-resize="nw"></span>
+                      <span class="resize-handle ne" data-resize="ne"></span>
+                      <span class="resize-handle sw" data-resize="sw"></span>
+                      <span class="resize-handle se" data-resize="se"></span>
+                      <span class="rotation-handle" data-rotate="art" aria-label="Girar estampa"></span>
+                    </div>
+                    <div class="design-selection text-selection" id="textSelection" hidden aria-label="Selecionar texto">
+                      <span class="resize-handle nw" data-resize="nw"></span>
+                      <span class="resize-handle ne" data-resize="ne"></span>
+                      <span class="resize-handle sw" data-resize="sw"></span>
+                      <span class="resize-handle se" data-resize="se"></span>
+                      <span class="rotation-handle" data-rotate="text" aria-label="Girar texto"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="art-side-toggle" id="artListToggle" type="button" aria-expanded="false" aria-controls="artListPanel" title="Abrir lista de estampas">
+              <span aria-hidden="true">▦</span>
+              <span>Estampas</span>
+            </button>
+            <div class="art-side-panel" id="artListPanel" hidden>
+              <div class="art-side-heading">
+                <strong id="artSideTitle">Estampas - Frente</strong>
+                <button class="art-side-close" type="button" aria-label="Fechar lista" data-close-art-list>×</button>
+              </div>
+              <div class="art-options" id="artOptions"></div>
+            </div>
+          </div>
+
+          <aside class="editor-panel">
+            <div class="section-heading compact">
+              <p class="eyebrow">Personalização</p>
+              <h2 id="editorTitle">Monte o seu produto</h2>
+            </div>
+            <fieldset>
+              <legend>Cor do produto</legend>
+              <div class="color-options" id="colorOptions"></div>
+            </fieldset>
+            <fieldset>
+              <legend>Tamanho</legend>
+              <div class="size-options" id="sizeOptions"></div>
+              <small class="size-error" id="sizeError" role="alert" hidden>Escolha um tamanho para continuar.</small>
+            </fieldset>
+            <fieldset class="custom-name-field">
+              <legend>Nome personalizado</legend>
+              <input id="customProductName" class="custom-name-input" type="text" maxlength="24" autocomplete="off" placeholder="Digite o nome que aparecerá na estampa">
+              <label class="custom-font-label" for="customFont">Estilo da fonte</label>
+              <select id="customFont" class="custom-font-select" aria-label="Estilo da fonte">
+                <option value="Arial">Arial</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Trebuchet MS">Trebuchet</option>
+                <option value="Courier New">Courier</option>
+                <option value="Impact">Impact</option>
+                <option value="Palatino Linotype">Palatino</option>
+                <option value="Garamond">Garamond</option>
+                <option value="Century Gothic">Century Gothic</option>
+                <option value="Lucida Sans Unicode">Lucida</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Calibri">Calibri</option>
+                <option value="Brush Script MT">Brush Script</option>
+                <option value="Comic Sans MS">Comic Sans</option>
+              </select>
+              <button class="reset-position-button" id="resetCustomNamePosition" type="button">Centralizar texto</button>
+              <small>Opcional. Aparece na estampa ou gravação do produto.</small>
+            </fieldset>
+            <fieldset class="art-position-controls">
+              <legend>Posição da estampa</legend>
+              <button class="reset-position-button" id="resetArtPosition" type="button">Centralizar estampa</button>
+            </fieldset>
+            <button class="primary-button wide" type="button" id="addToCartButton">Adicionar ao carrinho</button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="step" id="cart" aria-labelledby="cartTitle">
+        <div class="section-heading">
+          <p class="eyebrow">Revise antes de continuar</p>
+          <h1 id="cartTitle">Carrinho de personalizações</h1>
+          <p>Confira frente, costas, estampas, textos, cores e tamanhos de cada item.</p>
+        </div>
+        <div class="cart-confirm-layout">
+          <div class="cart-confirm-items" id="cartConfirmItems"></div>
+          <aside class="cart-confirm-summary">
+            <h2>Resumo do carrinho</h2>
+            <div class="cart-confirm-count"><span>Itens</span><strong id="cartConfirmCount">0</strong></div>
+            <div class="cart-confirm-total"><span>Total</span><strong id="cartConfirmTotal">R$ 0,00</strong></div>
+            <button class="secondary-button wide" id="addAnotherProduct" type="button">Adicionar outro produto</button>
+            <button class="primary-button wide" id="confirmCartItems" type="button">Confirmar itens e continuar</button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="step" id="customer" aria-labelledby="customerTitle">
+        <div class="form-layout">
+          <div class="section-heading">
+            <p class="eyebrow">Últimos detalhes</p>
+            <h1 id="customerTitle">Como podemos falar com você?</h1>
+            <p>Usaremos estes dados apenas para acompanhar seu pedido.</p>
+          </div>
+          <form id="customerForm" novalidate>
+            <label>Nome completo<input name="name" autocomplete="name" required placeholder="Seu nome"></label>
+            <label>WhatsApp<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="(11) 99999-9999"></label>
+            <label>E-mail<input name="email" type="email" autocomplete="email" required placeholder="voce@email.com"></label>
+            <p class="form-error" id="customerError" role="alert"></p>
+            <button class="primary-button wide" type="submit">Ir para pagamento</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="step" id="checkout" aria-labelledby="checkoutTitle">
+        <div class="checkout-layout">
+          <div>
+            <div class="section-heading compact">
+              <p class="eyebrow">Finalização</p>
+              <h1 id="checkoutTitle">Escolha o pagamento</h1>
+            </div>
+            <div class="payment-options" id="paymentOptions">
+              <button type="button" class="payment-option" data-payment="PIX"><span class="payment-icon pix">PIX</span><span><strong>Pix</strong><small>Aprovação imediata</small></span><span class="radio"></span></button>
+              <button type="button" class="payment-option" data-payment="CREDITO_ONLINE"><span class="payment-icon card">▰</span><span><strong>Cartão online</strong><small>Crédito ou débito</small></span><span class="radio"></span></button>
+              <button type="button" class="payment-option" data-payment="PAGAR_NA_RETIRADA"><span class="payment-icon counter">◆</span><span><strong>Pagar na retirada</strong><small>Dinheiro ou cartão físico</small></span><span class="radio"></span></button>
+            </div>
+            <div class="network-warning" id="networkWarning" hidden>Sem conexão. A confirmação ficará pendente até reconectar.</div>
+          </div>
+          <aside class="order-summary">
+            <h2>Resumo</h2>
+            <div class="summary-product">
+              <div class="summary-thumb" id="summaryThumb"></div>
+              <div><strong id="summaryProduct"></strong><small id="summaryVariation"></small></div>
+            </div>
+            <dl>
+              <div><dt>Produto</dt><dd id="summaryBase"></dd></div>
+              <div><dt>Frente e costas</dt><dd id="summaryExtra"></dd></div>
+              <div class="summary-total"><dt>Total</dt><dd id="summaryTotal"></dd></div>
+            </dl>
+            <button class="primary-button wide" id="confirmOrder" type="button" disabled>Confirmar pedido</button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="step success-step" id="success" aria-labelledby="successTitle">
+        <div class="success-card">
+          <div class="success-icon">✓</div>
+          <p class="eyebrow">Pedido realizado</p>
+          <h1 id="successTitle">Seu número é</h1>
+          <strong class="order-number" id="orderNumber">#1042</strong>
+          <p id="successMessage">Guarde este número para acompanhar seu pedido.</p>
+          <div class="success-progress" aria-label="Tempo para voltar ao início"><span id="successProgress"></span></div>
+          <small id="successCountdown">Voltando em 30 segundos</small>
+          <button class="primary-button wide success-new-order" id="newOrderButton" type="button">Fazer novo pedido</button>
+        </div>
+      </section>
+    </main>
+
+    <aside class="cart-panel" id="cartPanel" hidden aria-label="Carrinho">
+      <div class="cart-panel-heading">
+        <div>
+          <p class="eyebrow">Meu pedido</p>
+          <h2>Carrinho</h2>
+        </div>
+        <button class="art-side-close" id="closeCart" type="button" aria-label="Fechar carrinho">×</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-footer">
+        <div class="cart-total"><span>Total</span><strong id="cartTotal">R$ 0,00</strong></div>
+        <button class="primary-button wide" id="finishCart" type="button">Finalizar pedido</button>
+      </div>
+    </aside>
+
+    <div class="virtual-keyboard" id="virtualKeyboard" aria-label="Teclado virtual" hidden>
+      <div id="keyboardKeys"></div>
+    </div>
+  </div>
+  <script src="script.js" defer></script>
+</body>
+</html>

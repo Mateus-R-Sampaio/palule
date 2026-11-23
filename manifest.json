@@ -1,0 +1,19 @@
+{
+  "name": "Studio Personalizado",
+  "short_name": "Studio",
+  "description": "Personalização de produtos em tempo real",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f6f7fa",
+  "theme_color": "#171a25",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171a25">
+  <title>Painel KDS</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-body">
+  <header class="topbar admin-topbar">
+    <div class="admin-brand">
+      <span class="brand-mark">SP</span>
+      <strong>Studio · Operação</strong>
+    </div>
+    <div class="connection" id="connectionStatus"><span class="status-dot"></span><span>Online</span></div>
+  </header>
+  <main class="admin-main">
+    <div class="admin-toolbar">
+      <h1>Fila de produção</h1>
+      <div class="admin-toolbar-actions">
+        <button class="admin-switch" type="button">Produtos ativos: 4</button>
+        <button class="admin-switch" type="button">Estampas: 3</button>
+      </div>
+    </div>
+    <div class="kanban-grid" id="adminApp"></div>
+  </main>
+  <script src="script.js" defer></script>
+</body>
+</html>
